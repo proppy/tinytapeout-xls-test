@@ -39,7 +39,9 @@ jobs:
 
     - name: install xls
       shell: bash -l {0}
-      run: conda install -c litex-hub xls
+      run: |
+        conda install -c litex-hub xls
+        echo $CONDA_DIR >> $GITHUB_PATH
 
     - name: generate verilog
       run: make generate
