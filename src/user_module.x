@@ -1,4 +1,4 @@
-pub fn popcount(n: u8) -> u8 {
+fn popcount(n: u8) -> u8 {
   for (i, c): (u8, u8) in u8:0..u8:8 {
     c + ((n >> i) & u8:1)
   }(u8:0)
@@ -12,4 +12,8 @@ fn popcount_test() {
   let _= assert_eq(popcount(u8:0b0101_0101), u8:4);
   let _= assert_eq(popcount(u8:0b1111_1111), u8:8);
   _
+}
+
+pub fn user_module(io_in: u8) -> u8 {
+  popcount(io_in)
 }
