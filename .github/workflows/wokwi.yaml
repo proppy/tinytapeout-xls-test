@@ -37,6 +37,11 @@ jobs:
     - name: setup miniconda
       uses: conda-incubator/setup-miniconda@v2.1.1
 
+    - name: install xls
+      shell: bash -l {0}
+      run: |
+        conda install -c litex-hub xls
+
     # build PDK and fetch OpenLane
     - name: pdk & caravel
       run: |
