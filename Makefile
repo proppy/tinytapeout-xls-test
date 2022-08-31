@@ -29,4 +29,4 @@ harden_docker:
 	/bin/bash -c "./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi"
 
 harden_native:
-	./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi
+	$(OPENLANE_ROOT)/flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi
