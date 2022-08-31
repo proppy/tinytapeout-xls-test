@@ -1,13 +1,13 @@
 WOKWI_PROJECT_ID=339800239192932947
-HARDEN_ENV=docker
-
 # logic puzzle and muxes
 # 4 inverters 334348818476696146
 # the clock divider 334335179919196756
+HARDEN_ENV=docker
+
 generate:
-	ir_converter_main --top=popcount src/popcount.x > src/popcount.ir
-	opt_main popcount.ir > src/popcount_opt.ir
-	codegen_main --use_system_verilog=false --generator=combinational src/popcount_opt.ir > src/popcount.v
+	ir_converter_main --top=user_module src/user_module.x > src/user_module.ir
+	opt_main src/user_module.ir > src/user_module_opt.ir
+	codegen_main --module_name user_module_USER_MODULE_ID --use_system_verilog=false --generator=combinational src/user_module_opt.ir > src/user_module.v
 
 fetch:
 	sed -i -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' src/popcount.v
