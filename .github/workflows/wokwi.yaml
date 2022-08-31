@@ -17,12 +17,6 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2
 
-    # caching version seems broken atm
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.7.7' # install the python version needed
-
     - uses: actions/checkout@v2
       with:
           repository: s-holst/GDS2WebGL
@@ -34,10 +28,9 @@ jobs:
         activate-environment: tinytapeout
         environment-file: environment.yml
 
-    - name: install xls
+    - name: update path
       shell: bash -l {0}
       run: |
-        conda install -c litex-hub xls
         echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
 
     - name: generate verilog
