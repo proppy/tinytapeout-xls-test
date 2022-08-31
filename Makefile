@@ -2,6 +2,11 @@ WOKWI_PROJECT_ID=339800239192932947
 # logic puzzle and muxes
 # 4 inverters 334348818476696146
 # the clock divider 334335179919196756
+generate:
+	ir_converter_main --top=popcount src/popcount.x > src/popcount.ir
+	opt_main popcount.ir > src/popcount_opt.ir
+	codegen_main --use_system_verilog=false --generator=combinational src/popcount_opt.ir > src/popcount.v
+
 fetch:
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/scan_wrapper.v > src/scan_wrapper_$(WOKWI_PROJECT_ID).v
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/config.tcl > src/config.tcl
