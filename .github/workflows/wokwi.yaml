@@ -34,6 +34,9 @@ jobs:
           repository: s-holst/GDS2WebGL
           path: GDS2WebGL
 
+    - name: setup miniconda
+      uses: conda-incubator/setup-miniconda@v2.1.1
+
     # build PDK and fetch OpenLane
     - name: pdk & caravel
       run: |
