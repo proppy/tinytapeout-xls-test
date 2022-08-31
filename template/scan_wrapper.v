@@ -77,7 +77,7 @@ module scan_wrapper_USER_MODULE_ID (
 
     // instantiate the wokwi module
     user_module_USER_MODULE_ID user_module(
-        .io_in     (module_data_in),
+        .io_in  (module_data_in),
         .out    (module_data_out)
     );
 
