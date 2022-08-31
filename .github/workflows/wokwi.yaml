@@ -23,12 +23,6 @@ jobs:
       with:
         python-version: '3.7.7' # install the python version needed
 
-    # python deps from reqirements file, use a marketplace action
-    - name: Install Python dependencies
-      uses: py-actions/py-dependency-install@v2
-      with:
-        path: "requirements.txt"
-
     - uses: actions/checkout@v2
       with:
           repository: s-holst/GDS2WebGL
@@ -38,6 +32,7 @@ jobs:
       uses: conda-incubator/setup-miniconda@v2.1.1
       with:
         activate-environment: tinytapeout
+        environment-file: environment.yml
 
     - name: install xls
       shell: bash -l {0}
