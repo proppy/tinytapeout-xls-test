@@ -1,4 +1,6 @@
 WOKWI_PROJECT_ID=339800239192932947
+HARDEN_ENV=docker
+
 # logic puzzle and muxes
 # 4 inverters 334348818476696146
 # the clock divider 334335179919196756
@@ -13,8 +15,10 @@ fetch:
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/config.tcl > src/config.tcl
 	echo $(WOKWI_PROJECT_ID) > src/ID
 
+harden: harden_$(HARDEN_ENV)
+
 # needs PDK_ROOT and OPENLANE_ROOT, OPENLANE_IMAGE_NAME set from your environment
-harden:
+harden_docker:
 	docker run --rm \
 	-v $(OPENLANE_ROOT):/openlane \
 	-v $(PDK_ROOT):$(PDK_ROOT) \
@@ -24,3 +28,5 @@ harden:
 	$(OPENLANE_IMAGE_NAME) \
 	/bin/bash -c "./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi"
 
+harden_native:
+	./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi
