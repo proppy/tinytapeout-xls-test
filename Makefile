@@ -8,7 +8,7 @@ generate:
 	codegen_main --use_system_verilog=false --generator=combinational src/popcount_opt.ir > src/popcount.v
 
 fetch:
-	sed -i 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' src/popcount.v
+	sed -i -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' src/popcount.v
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/scan_wrapper.v > src/scan_wrapper_$(WOKWI_PROJECT_ID).v
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/config.tcl > src/config.tcl
 	echo $(WOKWI_PROJECT_ID) > src/ID
