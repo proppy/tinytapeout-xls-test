@@ -36,12 +36,14 @@ jobs:
 
     - name: setup miniconda
       uses: conda-incubator/setup-miniconda@v2.1.1
+      with:
+        activate-environment: tinytapeout
 
     - name: install xls
       shell: bash -l {0}
       run: |
         conda install -c litex-hub xls
-        echo $CONDA_DIR >> $GITHUB_PATH
+        echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
 
     - name: generate verilog
       run: make generate
