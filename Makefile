@@ -1,7 +1,6 @@
 WOKWI_PROJECT_ID=339800239192932947
-# logic puzzle and muxes
-# 4 inverters 334348818476696146
-# the clock divider 334335179919196756
+# bit popcount 339800239192932947
+
 HARDEN_ENV=docker
 
 generate:
