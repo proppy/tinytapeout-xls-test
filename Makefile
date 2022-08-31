@@ -10,7 +10,7 @@ generate:
 	codegen_main --module_name user_module_USER_MODULE_ID --use_system_verilog=false --generator=combinational src/user_module_opt.ir > src/user_module.v
 
 fetch:
-	sed -i -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' src/popcount.v
+	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' src/user_module.v src/user_module_$(WOKWI_PROJECT_ID).v
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/scan_wrapper.v > src/scan_wrapper_$(WOKWI_PROJECT_ID).v
 	sed -e 's/USER_MODULE_ID/$(WOKWI_PROJECT_ID)/g' template/config.tcl > src/config.tcl
 	echo $(WOKWI_PROJECT_ID) > src/ID
