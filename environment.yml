@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - litex-hub
+dependencies:
+  - gdstk
+  - gdspy
+  - pyclipper
+  - mapbox_earcut
+  - xls
