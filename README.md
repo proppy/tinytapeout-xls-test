@@ -37,7 +37,7 @@ endmodule
 
 ### Examples
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb) 8-bit inverter
+#### 8-bit inverter [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb)
 
 ```
 fn inverter(n: u8) -> u8 {
@@ -59,7 +59,7 @@ pub fn user_module(io_in: u8) -> u8 {
 }
 ```
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb) 8-bit population count
+#### 8-bit population count [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb)
 
 ```
 %%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
@@ -85,7 +85,7 @@ pub fn user_module(io_in: u8) -> u8 {
 }
 ```
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) 8-bit population count with bit twiddling hacks
+#### 8-bit population count with [bit twiddling hacks](https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) 8-bit population count
 
 ```
 %%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
