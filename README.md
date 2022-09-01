@@ -10,36 +10,36 @@ Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on 
 
 2. Create a new [Wokwi](https://wokwi.com/) project ID and update [WOKWI_PROJECT_ID](Makefile#L1).
 
-3. Modify [src/user_module.x](src/user_module.x) ([DSLX language reference](https://google.github.io/xls/dslx_reference/)
+3. Modify [src/user_module.x](src/user_module.x) ([DSLX language reference](https://google.github.io/xls/dslx_reference/))
 
-```
-pub fn user_module(io_in: u8) -> u8 {
-  io_in
-}
+	```
+	pub fn user_module(io_in: u8) -> u8 {
+	  io_in
+	}
 
-#![test]
-fn user_module_test() {
-  let _= assert_eq(user_module(u8:0b0010_1010), u8:42);
-  _
-}
-```
+	#![test]
+	fn user_module_test() {
+	  let _= assert_eq(user_module(u8:0b0010_1010), u8:42);
+	  _
+	}
+	```
 
 4. Push and check the [![wokwi](https://github.com/proppy/tinytapeout-xls-test/actions/workflows/wokwi.yaml/badge.svg)](https://github.com/proppy/tinytapeout-xls-test/actions/workflows/wokwi.yaml) action artefacts.
 
     - `src/user_module.v`: generated verilog
 	
-	```
-	module user_module_USER_MODULE_ID(
-	  input wire [7:0] io_in,
-	  output wire [7:0] out
-	);
-	  assign out = io_in;
-	endmodule
-	```
+		```
+		module user_module_USER_MODULE_ID(
+		  input wire [7:0] io_in,
+		  output wire [7:0] out
+		);
+		  assign out = io_in;
+		endmodule
+		```
 	
 	- `gds_render.svg`: GDS preview
 	
-	![gds](gds_preview.svg)
+        ![gds](gds_render.svg)
 
 
 5. Goto 3 until satisfied
