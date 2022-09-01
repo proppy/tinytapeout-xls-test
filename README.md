@@ -44,8 +44,7 @@ Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on 
 
 5. Goto 3 until satisfied
 
-6. Submit the form on [tinytapeout.com](https://tinytapeout.com/)
-
+6. Submit the TinyTapeout [form](https://docs.google.com/forms/d/e/1FAIpQLSc3ZF0AHKD3LoZRSmKX5byl-0AzrSK8ADeh0DtkZQX0bbr16w/viewform)
 
 ### DSLX input
 
