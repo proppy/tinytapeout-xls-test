@@ -2,17 +2,16 @@
 
 # XLS template for TinyTapeout
 
-Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on [XLS: Accelerated HW Synthesis](https://github.com/google/xls) toolkit .
+Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on [XLS: Accelerated HW Synthesis](https://github.com/google/xls) toolkit.
 
-## Example
-
+## Flow
 
 ### DSLX input
 
 ```
 pub fn user_module(io_in: u8) -> u8 {
   io_in
-}
+<}
 
 #![test]
 fn user_module_test() {
@@ -32,9 +31,18 @@ module user_module_USER_MODULE_ID(
 endmodule
 ```
 
-### Chip layout
+### GDS Layout preview
 
 ![img](gds_render.svg)
+
+### Examples
+
+- [8-bit inverter](notebooks/inverter.ipynb) <a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+
+- [8-bit population count](popcount/popcount.ipynb) <a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+
+- [8-bit population count with bit twidding hacks](notebooks/popcount_bithacks.ipynb)
+<a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
 
 # How to change the Wokwi project
 
