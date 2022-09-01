@@ -41,39 +41,9 @@ Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on 
 	
         ![gds](images/noop.svg)
 
-
 5. Goto 3 until satisfied
 
 6. Submit the TinyTapeout [form](https://docs.google.com/forms/d/e/1FAIpQLSc3ZF0AHKD3LoZRSmKX5byl-0AzrSK8ADeh0DtkZQX0bbr16w/viewform)
-
-### DSLX input
-
-```
-pub fn user_module(io_in: u8) -> u8 {
-  io_in
-<}
-
-#![test]
-fn user_module_test() {
-  let _= assert_eq(user_module(u8:0b0010_1010), u8:42);
-  _
-}
-```
-
-### Verilog output
-
-```
-module user_module_USER_MODULE_ID(
-  input wire [7:0] io_in,
-  output wire [7:0] out
-);
-  assign out = io_in;
-endmodule
-```
-
-### GDS Layout preview
-
-![gds preview](gds_render.svg)
 
 ### Examples
 
