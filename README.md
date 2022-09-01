@@ -39,7 +39,7 @@ Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on 
 	
 	- `gds_render.svg`: GDS preview
 	
-        ![gds](gds_render.svg)
+        ![gds](images/noop.svg)
 
 
 5. Goto 3 until satisfied
@@ -101,13 +101,13 @@ pub fn user_module(io_in: u8) -> u8 {
 }
 ```
 
+![gds](images/inverter.svg)
+
 #### 8-bit population count
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb)
 
 ```
-%%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
-
 fn popcount(n: u8) -> u8 {
   for (i, c): (u8, u8) in u8:0..u8:8 {
     c + ((n >> i) & u8:1)
@@ -129,13 +129,13 @@ pub fn user_module(io_in: u8) -> u8 {
 }
 ```
 
+![gds](images/popcount.svg)
+
 #### 8-bit population count with [bit twiddling hacks](https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel)
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) 
 
 ```
-%%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
-
 // https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel
 fn popcount(v: u8) -> u8 {
   let v = v - ((v >> 1) & u8:0x55);
@@ -157,6 +157,8 @@ pub fn user_module(io_in: u8) -> u8 {
   popcount(io_in)
 }
 ```
+
+![gds](images/popcount_bithacks.svg)
 
 # How to change the Wokwi project
 
