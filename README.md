@@ -37,11 +37,11 @@ endmodule
 
 ### Examples
 
-- [8-bit inverter](notebooks/inverter.ipynb) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb)
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb) [notebooks/inverter.ipynb](notebooks/inverter.ipynb)
 
-- [8-bit population count](popcount/popcount.ipynb) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb)
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb) [notebooks/popcount.ipynb](popcount/popcount.ipynb) 
 
-- [8-bit population count with bit twidding hacks](notebooks/popcount_bithacks.ipynb) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb)
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) [notebooks/popcount_bithacks.ipynb](notebooks/popcount_bithacks.ipynb) 
 
 # How to change the Wokwi project
 
