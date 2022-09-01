@@ -10,36 +10,31 @@ Template for submitting [TinyTapeout](https://tinytapeout.com) designs based on 
 ### DSLX input
 
 ```
-fn inverter(n: u8) -> u8 {
-  !n
+pub fn user_module(io_in: u8) -> u8 {
+  io_in
 }
 
 #![test]
-fn popcount_test() {
-  let _= assert_eq(inverter(u8:0b0000_0000), u8:0b1111_1111);
-  let _= assert_eq(inverter(u8:0b0000_0001), u8:0b1111_1110);
-  let _= assert_eq(inverter(u8:0b1111_0000), u8:0b0000_1111);
-  let _= assert_eq(inverter(u8:0b0101_0101), u8:0b1010_1010);
-  let _= assert_eq(inverter(u8:0b1111_1111), u8:0b0000_0000);
+fn user_module_test() {
+  let _= assert_eq(user_module(u8:0b0010_1010), u8:42);
   _
-}
-
-pub fn user_module(io_in: u8) -> u8 {
-  inverter(io_in)
 }
 ```
 
 ### Verilog output
 
 ```
-module user_module_339800239192932947(
+module user_module_USER_MODULE_ID(
   input wire [7:0] io_in,
   output wire [7:0] out
 );
-  assign out = ~io_in;
+  assign out = io_in;
 endmodule
 ```
 
+### Chip layout
+
+![img](gds_render.svg)
 
 # How to change the Wokwi project
 
