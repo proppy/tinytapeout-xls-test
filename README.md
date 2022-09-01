@@ -37,11 +37,16 @@ endmodule
 
 ### Examples
 
-- [8-bit inverter](notebooks/inverter.ipynb) <a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+- [8-bit inverter](notebooks/inverter.ipynb)
 
-- [8-bit population count](popcount/popcount.ipynb) <a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+<a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+
+- [8-bit population count](popcount/popcount.ipynb)
+
+<a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
 
 - [8-bit population count with bit twidding hacks](notebooks/popcount_bithacks.ipynb)
+
 <a href=\"https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
 
 # How to change the Wokwi project
