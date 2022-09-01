@@ -37,11 +37,80 @@ endmodule
 
 ### Examples
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb) [notebooks/inverter.ipynb](notebooks/inverter.ipynb)
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/inverter.ipynb) 8-bit inverter
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb) [notebooks/popcount.ipynb](popcount/popcount.ipynb) 
+```
+fn inverter(n: u8) -> u8 {
+  !n
+}
 
-- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) [notebooks/popcount_bithacks.ipynb](notebooks/popcount_bithacks.ipynb) 
+#![test]
+fn inverter_test() {
+  let _= assert_eq(inverter(u8:0b0000_0000), u8:0b1111_1111);
+  let _= assert_eq(inverter(u8:0b0000_0001), u8:0b1111_1110);
+  let _= assert_eq(inverter(u8:0b1111_0000), u8:0b0000_1111);
+  let _= assert_eq(inverter(u8:0b0101_0101), u8:0b1010_1010);
+  let _= assert_eq(inverter(u8:0b1111_1111), u8:0b0000_0000);
+  _
+}
+
+pub fn user_module(io_in: u8) -> u8 {
+  inverter(io_in)
+}
+```
+
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount.ipynb) 8-bit population count
+
+```
+%%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
+
+fn popcount(n: u8) -> u8 {
+  for (i, c): (u8, u8) in u8:0..u8:8 {
+    c + ((n >> i) & u8:1)
+  }(u8:0)
+}
+
+#![test]
+fn popcount_test() {
+  let _= assert_eq(popcount(u8:0b0000_0000), u8:0);
+  let _= assert_eq(popcount(u8:0b0000_0001), u8:1);
+  let _= assert_eq(popcount(u8:0b1111_0000), u8:4);
+  let _= assert_eq(popcount(u8:0b0101_0101), u8:4);
+  let _= assert_eq(popcount(u8:0b1111_1111), u8:8);
+  _
+}
+
+pub fn user_module(io_in: u8) -> u8 {
+  popcount(io_in)
+}
+```
+
+- [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/proppy/tinytapeout-xls-test/blob/main/notebooks/popcount_bithacks.ipynb) 8-bit population count with bit twiddling hacks
+
+```
+%%bash -c 'cat > tinytapeout-xls-test/src/user_module.x; interpreter_main tinytapeout-xls-test/src/user_module.x'
+
+// https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel
+fn popcount(v: u8) -> u8 {
+  let v = v - ((v >> 1) & u8:0x55);
+  let v = (v & u8:0x33) + ((v >> 2) & u8:0x33);
+  (v + (v >> 4) & u8:0x0F)
+}
+
+#![test]
+fn popcount_test() {
+  let _= assert_eq(popcount(u8:0b0000_0000), u8:0);
+  let _= assert_eq(popcount(u8:0b0000_0001), u8:1);
+  let _= assert_eq(popcount(u8:0b1111_0000), u8:4);
+  let _= assert_eq(popcount(u8:0b0101_0101), u8:4);
+  let _= assert_eq(popcount(u8:0b1111_1111), u8:8);
+  _
+}
+
+pub fn user_module(io_in: u8) -> u8 {
+  popcount(io_in)
+}
+```
 
 # How to change the Wokwi project
 
