@@ -92,3 +92,13 @@ jobs:
             gds_render.svg
             gds.html
 
+    - name: Archive to runs branch
+      run: |
+        git worktree add -b runs runs-worktree
+        rm -r runs-worktree/* && cp -r * runs-worktree/
+        git config --local user.name "$BOT_USER"
+        git config --local user.email "$BOT_EMAIL"
+        cd runs-worktree
+        git commit -m "archive runs for: $GITHUB_RUN_ID" -a
+        git tag "$GITHUB_RUN_ID"
+        git push --atomic origin runs "$GITHUB_RUN_ID"
