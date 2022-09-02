@@ -200,3 +200,14 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
+  summary:
+    needs: pages
+    runs-on: ubuntu-latest
+    steps:
+    - name: add preview
+      run: |
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        ## GDS preview
+
+        ![gds](https://proppy.github.io/tinytapeout-xls-test/gds_render.svg)
+        EOF
