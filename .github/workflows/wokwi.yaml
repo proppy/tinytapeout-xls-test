@@ -40,7 +40,7 @@ jobs:
       - name: populate rtl cache
         uses: actions/cache@v2
         with:
-          path: srcf
+          path: src
           key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
 
   gds:
