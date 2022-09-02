@@ -42,7 +42,7 @@ jobs:
         shell: bash -l {0}
         run: |
           echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
-      - name: generate verilog
+      - name: generate rtl
         run: make generate
       - name: populate rtl cache
         uses: actions/cache@v2
@@ -80,19 +80,17 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
-
-    # fetch the Verilog from Wokwi API
-    - name: convert to verilog
-      run: make fetch
-
-    # run the 'harden' rule in the Makefile to use OpenLane to build the GDS
-    - name: make GDS
-      run: make harden
+        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}
 
     # for debugging, show all the files
     - name: show files
-      run: find runs/wokwi/results
+      run: find src/
+
+    - name: generate user module
+      run: make fetch
+
+    - name: make GDS
+      run: make harden
 
     - name: populate src cache
       uses: actions/cache@v2
