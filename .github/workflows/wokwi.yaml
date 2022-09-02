@@ -21,9 +21,6 @@ jobs:
     if: needs.check-caches.outputs.xls-cache-hit != 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: debug cache
-        run: |
-          echo "xls-cache-hit: ${{ needs.check-caches.outputs.xls-cache-hit }}"
       - name: checkout repo
         uses: actions/checkout@v2
       - name: cache conda
