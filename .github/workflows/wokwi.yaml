@@ -82,13 +82,13 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-src-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER}}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-src-${{ github.run_id }}
 
     - name: populate runs cache
       uses: actions/cache@v2
       with:
         path: runs
-        key: ${{ runner.os }}-runs-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER}}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-runs-${{ github.run_id }}
 
   svg:
     needs: gds
@@ -106,7 +106,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: runs
-        key: ${{ runner.os }}-runs-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER}}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-runs-${{ github.run_id }}
     - name: create svg
       run: python view.py
     - name: populate svg cache
