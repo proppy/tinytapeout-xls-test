@@ -9,21 +9,21 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
-    - name: check rtl cache
-      id: check-rtl
+    - name: check xls cache
+      id: check-xls
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+        key: ${{ runner.os }}-xls-${{ hashFiles('src/user_module.x') }}        
     
   xls:
     needs: check-caches
-    if: needs.check-caches.outputs.rtl-cache-hit != 'true'
+    if: needs.check-caches.outputs.xls-cache-hit != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: debug cache
         run: |
-          echo "rtl-cache-hit: ${{ needs.check-caches.outputs.rtl-cache-hit }}"
+          echo "xls-cache-hit: ${{ needs.check-caches.outputs.xls-cache-hit }}"
       - name: checkout repo
         uses: actions/checkout@v2
       - name: cache conda
@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: src
-          key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+          key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}        
 
   gds:
     needs: xls
@@ -85,11 +85,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}
-
-    # for debugging, show all the files
-    - name: show files
-      run: find src/
+        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
 
     - name: generate user module
       run: make fetch
