@@ -29,11 +29,11 @@ jobs:
           echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
       - name: generate verilog
         run: make generate
-      - name: populate xls cache
+      - name: populate rtl cache
         uses: actions/cache@v2
         with:
-          path: xls
-          key: xls-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+          path: src
+          key: rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
 
   gds:
     needs: xls
@@ -58,6 +58,12 @@ jobs:
         git clone https://github.com/efabless/caravel_user_project.git -b mpw-6c
         cd caravel_user_project
         make setup
+
+    - name: restore rtl cache
+      uses: actions/cache@v2
+      with:
+        path: src
+        key: rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
 
     # fetch the Verilog from Wokwi API
     - name: convert to verilog
