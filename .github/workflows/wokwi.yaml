@@ -134,7 +134,7 @@ jobs:
     - name: render synth
       run: |
         dot -Tsvg runs/wokwi/tmp/synthesis/hierarchy.dot > synth_top.svg
-        dot -Tsvg runs/wokwi/tmp/synthesis/techmap.dot > synth_techmap.svg
+        dot -Tsvg runs/wokwi/tmp/synthesis/post_techmap.dot > synth_techmap.svg
     - name: populate svg cache
       uses: actions/cache@v2
       with:
