@@ -84,20 +84,6 @@ jobs:
     - name: setup python
       uses: actions/setup-python@v4
 
-    - name: report summary
-      run: |
-        python << EOF >> $GITHUB_STEP_SUMMARY
-        import csv
-        with open('runs/wokwi/reports/final_summary_report.csv') as f:
-            report = list(csv.DictReader(f))[0]
-            print('## report')
-            print()
-            keys = ['OpenDP_Util', 'cell_count', 'wire_length', 'AND', 'DFF', 'NAND', 'NOR', 'OR', 'XOR', 'XNOR', 'MUX']
-            print(f'| { "|".join(keys) } |')
-            print(f'| { "|".join(["-----"] * len(keys)) } |')
-            print(f'| { "|".join(report[k] for k in keys) } |')
-        EOF
-
     - name: populate src cache
       uses: actions/cache@v2
       with:
@@ -226,10 +212,23 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
-  summary:
+  final:
     needs: pages
     runs-on: ubuntu-latest
     steps:
+    - name: add openlane summary
+      run: |
+        python << EOF >> $GITHUB_STEP_SUMMARY
+        import csv
+        with open('runs/wokwi/reports/final_summary_report.csv') as f:
+            report = list(csv.DictReader(f))[0]
+            print('## report')
+            print()
+            keys = ['OpenDP_Util', 'cell_count', 'wire_length', 'AND', 'DFF', 'NAND', 'NOR', 'OR', 'XOR', 'XNOR', 'MUX']
+            print(f'| { "|".join(keys) } |')
+            print(f'| { "|".join(["-----"] * len(keys)) } |')
+            print(f'| { "|".join(report[k] for k in keys) } |')
+        EOF
     - name: add synth graph
       run: |
         cat << EOF >> $GITHUB_STEP_SUMMARY
