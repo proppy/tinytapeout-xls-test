@@ -96,7 +96,7 @@ jobs:
             print(f'| { "|".join(keys) } |')
             print(f'| { "|".join(["-----"] * len(keys)) } |')
             print(f'| { "|".join(report[k] for k in keys) } |')
-        EOF      
+        EOF
 
     - name: populate src cache
       uses: actions/cache@v2
