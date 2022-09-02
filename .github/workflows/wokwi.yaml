@@ -32,19 +32,21 @@ jobs:
           echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
       - name: run dslx test
         run: |
-          echo "# test" >> $GITHUB_STEP_SUMMARY
-          interpreter_main src/user_module.x | tee -a $GITHUB_STEP_SUMMARY
+          cat << EOF >> $GITHUB_STEP_SUMMARY
+          # test
+          
+          `interpreter_main src/user_module.x`
+          EOF
       - name: generate rtl
         run: make generate
       - name: add verilog to summary
         run: |
           cat << EOF >> $GITHUB_STEP_SUMMARY
           # codegen
-          ```
-          EOF
-          cat src/user_module.v >> >> $GITHUB_STEP_SUMMARY
-          cat << EOF >> $GITHUB_STEP_SUMMARY
-          ```
+          
+          \`\`\`
+          `cat src/user_module.v`
+          \`\`\`
           EOF
       - name: populate rtl cache
         uses: actions/cache@v2
@@ -246,19 +248,31 @@ jobs:
     steps:
     - name: add synth graph
       run: |
-        echo "# top" >> $GITHUB_STEP_SUMMARY
-        echo "![top](${{ needs.pages.outputs.page_url }}synth_top.svg)" >> $GITHUB_STEP_SUMMARY
-        echo "# techmap" >> $GITHUB_STEP_SUMMARY
-        echo "![techmap](${{ needs.pages.outputs.page_url }}synth_techmap.svg)" >> $GITHUB_STEP_SUMMARY
+        PAGE_URL=${{ needs.pages.outputs.page_url }}
+        PAGE_URL=$(echo "$PAGE_URL" | sed -e 's/\/$//')
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        # top
+
+        ![top]($PAGE_URL/synth_top.svg)
+
+        # techmap
+
+        ![techmap]($PAGE_URL/synth_techmap.svg)
+        EOF
   layout:
     needs: pages
     runs-on: ubuntu-latest
     steps:
     - name: add gds preview
       run: |
-        echo '# svg' >> $GITHUB_STEP_SUMMARY
-        echo "![svg](${{ needs.pages.outputs.page_url }}gds_render.svg)" >> $GITHUB_STEP_SUMMARY
-    - name: add webgl link
-      run: |
-        echo '# webgl' >> $GITHUB_STEP_SUMMARY
-        echo "![webgl](${{ needs.pages.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
+        PAGE_URL=${{ needs.pages.outputs.page_url }}
+        PAGE_URL=$(echo "$PAGE_URL" | sed -e 's/\/$//')
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        # svg
+
+        ![svg]($PAGE_URL/gds_render.svg)
+
+        # webgl
+
+        ![webgl]($PAGE_URL)
+        EOF
