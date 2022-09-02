@@ -5,7 +5,7 @@ jobs:
   check-caches:
     runs-on: ubuntu-latest
     outputs:
-      rtl-cache-hit: steps.check-rtl.outputs.cache-hit
+      xls-cache-hit: steps.check-xls.outputs.cache-hit
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
