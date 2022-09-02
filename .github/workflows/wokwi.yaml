@@ -141,7 +141,7 @@ jobs:
     - name: GDS2WebGL
       run: |
         cd GDS2WebGL
-        python3 gds2webgl.py -i ../runs/wokwi/results/final/gds/*.gds -o ../gds.html
+        python3 gds2webgl.py -i ../runs/wokwi/results/final/gds/*.gds -o ../index.html
     - name: populate webgl cache
       uses: actions/cache@v2
       with:
