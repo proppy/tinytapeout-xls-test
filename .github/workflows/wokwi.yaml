@@ -78,6 +78,9 @@ jobs:
     - name: make GDS
       run: make harden
 
+    - name: show runs files
+      run: find runs/
+
     - name: setup python
       uses: actions/setup-python@v4
 
