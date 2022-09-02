@@ -1,6 +1,10 @@
 name: wokwi
 # either manually started, or on a schedule
 on: [ push, workflow_dispatch ]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   xls:
     runs-on: ubuntu-latest
@@ -144,14 +148,9 @@ jobs:
         path: gds.html
         key: ${{ runner.os }}-webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
         
-  deploy:
+  artifact:
     needs:
       - gds
-      - svg
-      - webgl
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
     - name: restore src cache
@@ -164,6 +163,21 @@ jobs:
       with:
         path: runs
         key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+    - name: upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+          # path depends on the tag and the module name
+          name: GDS
+          path: |
+            src/*
+            runs/wokwi/results/final/*
+            runs/wokwi/reports/final_summary_report.csv
+  pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
     - name: restore svg cache
       uses: actions/cache@v2
       with:
@@ -174,22 +188,14 @@ jobs:
       with:
         path: webgl
         key: ${{ runner.os }}-webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-    - name: upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-          # path depends on the tag and the module name
-          name: GDS
-          path: |
-            src/*
-            runs/wokwi/results/final/*
-            runs/wokwi/reports/final_summary_report.csv
-            runs/wokwi/reports/synthesis/1-synthesis.stat.rpt.strategy4
-            gds_render.svg
-            gds.html
-    - name: upload page artifact
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+    - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: '.'
-    - name: deploy to github pages
+        path:
+        - gds_render.svg
+        - gds.html
+    - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
