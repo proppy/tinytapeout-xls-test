@@ -2,23 +2,8 @@ name: wokwi
 # either manually started, or on a schedule
 on: [ push, workflow_dispatch ]
 jobs:
-  check-caches:
-    runs-on: ubuntu-latest
-    outputs:
-      xls-cache-hit: steps.check-xls.outputs.cache-hit
-    steps:
-    - name: checkout repo
-      uses: actions/checkout@v2
-    - name: check xls cache
-      id: check-xls
-      uses: actions/cache@v2
-      with:
-        path: src
-        key: ${{ runner.os }}-xls-${{ hashFiles('src/user_module.x') }}        
-    
   xls:
     needs: check-caches
-    if: needs.check-caches.outputs.xls-cache-hit != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
