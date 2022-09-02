@@ -18,7 +18,7 @@ jobs:
     
   xls:
     needs: check-caches
-    if: needs.check-caches.outputs.rtl-cache-hit
+    if: needs.check-caches.outputs.rtl-cache-hit != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
