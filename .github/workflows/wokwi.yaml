@@ -66,13 +66,15 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2
 
-    # build PDK and fetch OpenLane
+    - name: checkout caravel_user_project
+      uses: actions/checkout@v2
+      with:
+        repository: efabless/caravel_user_project
+        ref: mpw-6c
+        path: caravel_user_project
+
     - name: pdk & caravel
-      run: |
-        cd $HOME
-        git clone https://github.com/efabless/caravel_user_project.git -b mpw-6c
-        cd caravel_user_project
-        make setup
+      run: make -C caravel_user_project setup
 
     - name: restore rtl cache
       uses: actions/cache@v2
