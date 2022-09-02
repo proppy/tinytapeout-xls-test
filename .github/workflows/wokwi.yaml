@@ -34,9 +34,9 @@ jobs:
         run: make generate
       - name: add verilog to summary
         run: |
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
           cat src/user_module.v >> >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
       - name: populate rtl cache
         uses: actions/cache@v2
         with:
