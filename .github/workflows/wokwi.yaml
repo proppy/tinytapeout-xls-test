@@ -243,7 +243,7 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
-  layout:
+  preview:
     needs: pages
     runs-on: ubuntu-latest
     steps:
