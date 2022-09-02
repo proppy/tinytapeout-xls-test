@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: src
-          key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}        
+          key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
 
   gds:
     needs: xls
@@ -103,7 +103,7 @@ jobs:
       with:
         path: src
         key: ${{ runner.os }}-src-${{ github.run_id }}
-        
+
     - name: populate runs cache
       uses: actions/cache@v2
       with:
@@ -140,19 +140,19 @@ jobs:
       with:
         path: gds_render.svg
         key: ${{ runner.os }}-svg-${{ github.run_id }}
-        
+
   webgl:
     needs: gds
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
-      uses: actions/checkout@v2      
+      uses: actions/checkout@v2
     - name: setup python
       uses: actions/setup-python@v4
     - name: install deps
       uses: py-actions/py-dependency-install@v3
       with:
-        path: 'requirements-webgl.txt'    
+        path: 'requirements-webgl.txt'
     - name: restore runs cache
       uses: actions/cache@v2
       with:
@@ -173,7 +173,7 @@ jobs:
       with:
         path: index.html
         key: ${{ runner.os }}-webgl-${{ github.run_id }}
-        
+
   artifact:
     needs:
     - gds
@@ -237,17 +237,24 @@ jobs:
 
         ### top
 
-        ![top](https://proppy.github.io/tinytapeout-xls-test/synth_top.svg)
-
+        EOF
+        echo "![top](${{ needs.pages.outputs.page_url }}/synth_top.svg"
+        cat << EOF >> $GITHUB_STEP_SUMMARY
         ### techmap
 
-        ![techmap](https://proppy.github.io/tinytapeout-xls-test/synth_techmap.svg)
         EOF
-
+        echo "![techmap](${{ needs.pages.outputs.page_url }}/synth_techmap.svg"
     - name: add gds preview
       run: |
         cat << EOF >> $GITHUB_STEP_SUMMARY
         ## gds
 
-        ![gds](https://proppy.github.io/tinytapeout-xls-test/gds_render.svg)
         EOF
+        echo "![gds](${{ needs.pages.outputs.page_url }}/gds_render.svg"
+    - name: add webgl link
+      run: |
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        ## webgl
+
+        EOF
+        echo "![gds](${{ needs.pages.outputs.page_url }})"
