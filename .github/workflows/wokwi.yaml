@@ -78,12 +78,28 @@ jobs:
     - name: make GDS
       run: make harden
 
+    - name: setup python
+      uses: actions/setup-python@v4
+
+    - name: report summary
+      run: |
+        python << EOF >> $GITHUB_STEP_SUMMARY
+        import csv
+        with open('runs/wokwi/reports/final_summary_report.csv') as f:
+            report = list(csv.DictReader(f))[0]
+            print('## report')
+            print('| name  | value |')
+            print('| ----- | ----- |')
+            for k in ('OpenDP_Util', 'cell_count', 'wire_length', 'AND', 'DFF', 'NAND', 'NOR', 'OR', 'XOR', 'XNOR', 'MUX'):
+                print(f'| {k} | {report[k]} |')        
+        EOF
+
     - name: populate src cache
       uses: actions/cache@v2
       with:
         path: src
         key: ${{ runner.os }}-src-${{ github.run_id }}
-
+        
     - name: populate runs cache
       uses: actions/cache@v2
       with:
