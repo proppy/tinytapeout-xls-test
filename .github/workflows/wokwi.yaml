@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: src
-          key: rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+          key: ${{ runner.os }}-rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
 
   gds:
     needs: xls
@@ -63,7 +63,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+        key: ${{ runner.os }}-rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
 
     # fetch the Verilog from Wokwi API
     - name: convert to verilog
@@ -81,13 +81,13 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: src-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-src-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
 
     - name: populate runs cache
       uses: actions/cache@v2
       with:
         path: runs
-        key: runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
 
   svg:
     needs: gds
@@ -103,7 +103,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: runs
-        key: runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     # make the SVG
     - name: checkout repo
       uses: actions/checkout@v2
@@ -113,7 +113,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: gds_render.svg
-        key: runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
         
   webgl:
     needs: gds
@@ -129,7 +129,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: runs
-        key: runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     - name: checkout repo
       uses: actions/checkout@v2
       with:
@@ -142,7 +142,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: gds.html
-        key: webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
         
   deploy:
     needs:
@@ -158,22 +158,22 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: src-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-src-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     - name: restore runs cache
       uses: actions/cache@v2
       with:
         path: runs
-        key: runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     - name: restore svg cache
       uses: actions/cache@v2
       with:
         path: svg
-        key: svg-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-svg-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     - name: restore webgl cache
       uses: actions/cache@v2
       with:
         path: webgl
-        key: webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+        key: ${{ runner.os }}-webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
