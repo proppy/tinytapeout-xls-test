@@ -101,7 +101,9 @@ jobs:
     - name: install deps
       uses: py-actions/py-dependency-install@v3
       with:
-        path: 'requirements-svg.txt'    
+        path: 'requirements-svg.txt'
+    - name: setup graphviz
+      uses: ts-graphviz/setup-graphviz@v1
     - name: restore runs cache
       uses: actions/cache@v2
       with:
@@ -109,6 +111,10 @@ jobs:
         key: ${{ runner.os }}-runs-${{ github.run_id }}
     - name: create svg
       run: python view.py
+    - name: render synth
+      run: |
+        dot -Tsvg runs/wokwi/tmp/synthesis/hierarchy.dot > synth_top.svg
+        dot -Tsvg runs/wokwi/tmp/synthesis/techmap.dot > synth_techmap.svg
     - name: populate svg cache
       uses: actions/cache@v2
       with:
