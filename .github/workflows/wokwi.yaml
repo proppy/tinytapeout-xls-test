@@ -119,7 +119,10 @@ jobs:
         key: webgl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
         
   deploy:
-    needs: gds
+    needs:
+      - gds
+      - svg
+      - webgl
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
