@@ -30,10 +30,15 @@ jobs:
         shell: bash -l {0}
         run: |
           echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
+      - name: run dslx test
+        run: |
+          echo "# test" >> $GITHUB_STEP_SUMMARY
+          interpreter_main src/user_module.x | tee -a $GITHUB_STEP_SUMMARY
       - name: generate rtl
         run: make generate
       - name: add verilog to summary
         run: |
+          echo "# codegen >> $GITHUB_STEP_SUMMARY
           echo "```" >> $GITHUB_STEP_SUMMARY
           cat src/user_module.v >> >> $GITHUB_STEP_SUMMARY
           echo "```" >> $GITHUB_STEP_SUMMARY
