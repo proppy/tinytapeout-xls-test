@@ -150,7 +150,7 @@ jobs:
         
   artifact:
     needs:
-      - gds
+    - gds
     runs-on: ubuntu-latest
     steps:
     - name: restore src cache
@@ -173,6 +173,9 @@ jobs:
             runs/wokwi/results/final/*
             runs/wokwi/reports/final_summary_report.csv
   pages:
+    needs:
+    - svg
+    - webgl
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
