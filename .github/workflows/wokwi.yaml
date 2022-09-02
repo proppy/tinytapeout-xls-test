@@ -94,8 +94,8 @@ jobs:
 
     - name: Archive to runs branch
       run: |
-        git worktree add -b runs runs-worktree
-        rm -r runs-worktree/* && cp -r * runs-worktree/
+        git worktree add -b runs --no-checkout runs-worktree
+        tar --exclude-vcs --exclude=runs-worktree -f - -c * | tar -C runs-worktree
         git config --local user.name "$BOT_USER"
         git config --local user.email "$BOT_EMAIL"
         cd runs-worktree
