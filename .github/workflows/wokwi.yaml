@@ -74,7 +74,9 @@ jobs:
         path: caravel_user_project
 
     - name: pdk & caravel
-      run: make -C caravel_user_project setup
+      run: |
+        cd caravel_user_project
+        make setup
 
     - name: restore rtl cache
       uses: actions/cache@v2
