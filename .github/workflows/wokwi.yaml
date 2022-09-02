@@ -34,8 +34,10 @@ jobs:
         run: |
           cat << EOF >> $GITHUB_STEP_SUMMARY
           # test
-          
-          `interpreter_main src/user_module.x`
+
+          \`\`\`          
+          `interpreter_main src/user_module.x 2>&1`
+          \`\`\`
           EOF
       - name: generate rtl
         run: make generate
