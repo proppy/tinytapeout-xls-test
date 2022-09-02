@@ -32,10 +32,15 @@ jobs:
           echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
       - name: generate rtl
         run: make generate
+      - name: add verilog to summary
+        run: |
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat src/user_module.v >> >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
       - name: populate rtl cache
         uses: actions/cache@v2
         with:
-          path: src
+          path: srcf
           key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
 
   gds:
@@ -90,8 +95,6 @@ jobs:
         import csv
         with open('runs/wokwi/reports/final_summary_report.csv') as f:
             report = list(csv.DictReader(f))[0]
-            print('## report')
-            print()
             keys = ['OpenDP_Util', 'cell_count', 'wire_length', 'AND', 'DFF', 'NAND', 'NOR', 'OR', 'XOR', 'XNOR', 'MUX']
             print(f'| { "|".join(keys) } |')
             print(f'| { "|".join(["-----"] * len(keys)) } |')
@@ -234,33 +237,19 @@ jobs:
     steps:
     - name: add synth graph
       run: |
-        cat << EOF >> $GITHUB_STEP_SUMMARY
-        ## synth
-
-        ### top
-
-        EOF
-        echo "![top](${{ needs.pages.outputs.page_url }}synth_top.svg)"
-        cat << EOF >> $GITHUB_STEP_SUMMARY
-        ### techmap
-
-        EOF
-        echo "![techmap](${{ needs.pages.outputs.page_url }}synth_techmap.svg)"
+        echo "# top" >> $GITHUB_STEP_SUMMARY
+        echo "![top](${{ needs.pages.outputs.page_url }}synth_top.svg)" >> $GITHUB_STEP_SUMMARY
+        echo "# techmap" >> $GITHUB_STEP_SUMMARY
+        echo "![techmap](${{ needs.pages.outputs.page_url }}synth_techmap.svg)" >> $GITHUB_STEP_SUMMARY
   layout:
     needs: pages
     runs-on: ubuntu-latest
     steps:
     - name: add gds preview
       run: |
-        cat << EOF >> $GITHUB_STEP_SUMMARY
-        ## gds
-
-        EOF
-        echo "![gds](${{ needs.pages.outputs.page_url }}gds_render.svg)"
+        echo '# svg' >> $GITHUB_STEP_SUMMARY
+        echo "![svg](${{ needs.pages.outputs.page_url }}gds_render.svg)" >> $GITHUB_STEP_SUMMARY
     - name: add webgl link
       run: |
-        cat << EOF >> $GITHUB_STEP_SUMMARY
-        ## webgl
-
-        EOF
-        echo "![gds](${{ needs.pages.outputs.page_url }})"
+        echo '# webgl' >> $GITHUB_STEP_SUMMARY
+        echo "![webgl](${{ needs.pages.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
