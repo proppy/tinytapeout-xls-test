@@ -117,9 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
-      uses: actions/checkout@v2
-      with:
-        repository: s-holst/GDS2WebGL
+      uses: actions/checkout@v2      
     - name: setup python
       uses: actions/setup-python@v4
     - name: install deps
@@ -132,9 +130,15 @@ jobs:
         path: runs
         key: ${{ runner.os }}-runs-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
     # make html gds viewer with GDS2WebGL
+    - name: checkout repo
+      uses: actions/checkout@v2
+      with:
+        repository: s-holst/GDS2WebGL
+        path: GDS2WebGL
     - name: GDS2WebGL
       run: |
-        python3 gds2webgl.py -i runs/wokwi/results/final/gds/*.gds -o gds.html
+        cd GDS2WebGL
+        python3 gds2webgl.py -i ../runs/wokwi/results/final/gds/*.gds -o ../gds.html
     - name: populate webgl cache
       uses: actions/cache@v2
       with:
