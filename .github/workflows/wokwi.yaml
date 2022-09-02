@@ -3,7 +3,6 @@ name: wokwi
 on: [ push, workflow_dispatch ]
 jobs:
   xls:
-    needs: check-caches
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
