@@ -191,6 +191,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
     - name: restore svg cache
@@ -237,19 +239,19 @@ jobs:
         ### top
 
         EOF
-        echo "![top](${{ needs.pages.outputs.page_url }}/synth_top.svg"
+        echo "![top](${{ needs.pages.outputs.page_url }}/synth_top.svg)"
         cat << EOF >> $GITHUB_STEP_SUMMARY
         ### techmap
 
         EOF
-        echo "![techmap](${{ needs.pages.outputs.page_url }}/synth_techmap.svg"
+        echo "![techmap](${{ needs.pages.outputs.page_url }}/synth_techmap.svg)"
     - name: add gds preview
       run: |
         cat << EOF >> $GITHUB_STEP_SUMMARY
         ## gds
 
         EOF
-        echo "![gds](${{ needs.pages.outputs.page_url }}/gds_render.svg"
+        echo "![gds](${{ needs.pages.outputs.page_url }}/gds_render.svg)"
     - name: add webgl link
       run: |
         cat << EOF >> $GITHUB_STEP_SUMMARY
