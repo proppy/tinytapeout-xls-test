@@ -2,10 +2,3 @@ channels:
   - litex-hub
 dependencies:
   - xls
-  - python
-  - pip
-  - pip:
-    - gdstk
-    - gdspy
-    - pyclipper
-    - mapbox_earcut
