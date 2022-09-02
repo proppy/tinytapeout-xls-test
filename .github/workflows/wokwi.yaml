@@ -78,27 +78,23 @@ jobs:
         cd GDS2WebGL
         python3 gds2webgl.py -i ../runs/wokwi/results/final/gds/*gds -o ../gds.html
 
-    # archive the gds and some other important files
-    - name: Archive files
-      uses: actions/upload-artifact@v2
+  deploy:
+    needs: wokwi
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: setup pages
+      uses: actions/configure-pages@v2
+    - name: download artifact
+      uses: actions/download-artifact@v3
       with:
-          # path depends on the tag and the module name
-          name: GDS
-          path: |
-            src/*
-            runs/wokwi/results/final/*
-            runs/wokwi/reports/final_summary_report.csv
-            runs/wokwi/reports/synthesis/1-synthesis.stat.rpt.strategy4
-            gds_render.svg
-            gds.html
-
-    - name: Archive to runs branch
-      run: |
-        git worktree add -b runs --no-checkout runs-worktree
-        tar --exclude-vcs --exclude=runs-worktree -f - -c * | tar -C runs-worktree
-        git config --local user.name "$BOT_USER"
-        git config --local user.email "$BOT_EMAIL"
-        cd runs-worktree
-        git commit -m "archive runs for: $GITHUB_RUN_ID" -a
-        git tag "$GITHUB_RUN_ID"
-        git push --atomic origin runs "$GITHUB_RUN_ID"
+        name: GDS
+    - name: upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: '.'
+    - name: deploy to github pages
+      id: deployment
+      uses: actions/deploy-pages@v1
