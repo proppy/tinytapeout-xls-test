@@ -210,10 +210,24 @@ jobs:
     needs: pages
     runs-on: ubuntu-latest
     steps:
-    - name: add preview
+    - name: add synth graph
       run: |
         cat << EOF >> $GITHUB_STEP_SUMMARY
-        ## GDS preview
+        ## synth
+
+        ### top
+
+        ![top](https://proppy.github.io/tinytapeout-xls-test/synth_top.svg)
+
+        ### techmap
+
+        ![techmap](https://proppy.github.io/tinytapeout-xls-test/synth_techmap.svg)
+        EOF
+
+    - name: add gds preview
+      run: |
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        ## gds
 
         ![gds](https://proppy.github.io/tinytapeout-xls-test/gds_render.svg)
         EOF
