@@ -113,7 +113,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: gds_render.svg
-        key: ${{ runner.os }}-runs-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-svg-${{ github.run_id }}
         
   webgl:
     needs: gds
@@ -131,7 +131,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: runs
-        key: ${{ runner.os }}-runs-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-runs-${{ github.run_id }}
     # make html gds viewer with GDS2WebGL
     - name: checkout repo
       uses: actions/checkout@v2
@@ -146,7 +146,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: gds.html
-        key: ${{ runner.os }}-webgl-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-webgl-${{ github.run_id }}
         
   artifact:
     needs:
@@ -157,12 +157,12 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-src-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-src-${{ github.run_id }}
     - name: restore runs cache
       uses: actions/cache@v2
       with:
         path: runs
-        key: ${{ runner.os }}-runs-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-runs-${{ github.run_id }}
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
@@ -185,12 +185,12 @@ jobs:
       uses: actions/cache@v2
       with:
         path: svg
-        key: ${{ runner.os }}-svg-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-svg-${{ github.run_id }}
     - name: restore webgl cache
       uses: actions/cache@v2
       with:
         path: webgl
-        key: ${{ runner.os }}-webgl-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_NUMBER }}-${{ env.GITHUB_RUN_ATTEMPT }}
+        key: ${{ runner.os }}-webgl-${{ github.run_id }}
     - name: Setup Pages
       uses: actions/configure-pages@v2
     - name: Upload artifact
