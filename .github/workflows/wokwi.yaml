@@ -2,7 +2,24 @@ name: wokwi
 # either manually started, or on a schedule
 on: [ push, workflow_dispatch ]
 jobs:
+  check-caches:
+    runs-on: ubuntu-latest
+    outputs:
+      rtl-cache-hit: steps.check-rtl.outputs.cache-hit
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: check rtl cache
+      id: check-rtl
+      uses: actions/cache@v2
+      with:
+        path: src
+        key:
+          ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+    
   xls:
+    needs: check-caches
+    if: needs.check-caches.outputs.rtl-cache-hit
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -10,7 +27,6 @@ jobs:
       - name: cache conda
         uses: actions/cache@v2
         env:
-          # Increase this value to reset cache if etc/example-environment.yml has not changed
           CACHE_NUMBER: 1
         with:
           path: ~/conda_pkgs_dir
@@ -33,7 +49,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: src
-          key: ${{ runner.os }}-rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+          key:
+            ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
 
   gds:
     needs: xls
@@ -63,7 +80,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key: ${{ runner.os }}-rtl-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+          key:
+            ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
 
     # fetch the Verilog from Wokwi API
     - name: convert to verilog
