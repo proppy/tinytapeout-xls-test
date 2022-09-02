@@ -2,7 +2,42 @@ name: wokwi
 # either manually started, or on a schedule
 on: [ push, workflow_dispatch ]
 jobs:
+  xls:
+    runs-on: ubuntu-latest    
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: cache conda
+      uses: actions/cache@v2
+      env:
+        # Increase this value to reset cache if etc/example-environment.yml has not changed
+        CACHE_NUMBER: 1
+      with:
+        path: ~/conda_pkgs_dir
+        key:
+          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+    - name: setup miniconda
+      uses: conda-incubator/setup-miniconda@v2.1.1
+      with:
+        activate-environment: tinytapeout
+        channel-priority: strict
+        environment-file: environment.yml
+        use-only-tar-bz2: true
+    - name: update path
+      shell: bash -l {0}
+      run: |
+        echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
+
+    - name: generate verilog
+      run: make generate
+        
+    - name: populate xls cache
+      uses: actions/cache@v2
+      with:
+        path: xls
+        key: xls-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT} 
+
   gds:
+    needs: xls
     env:
         OPENLANE_TAG:   2022.02.23_02.50.41
         OPENLANE_IMAGE_NAME:    efabless/openlane:$(OPENLANE_TAG)
@@ -16,32 +51,6 @@ jobs:
     # need the repo checked out
     - name: checkout repo
       uses: actions/checkout@v2
-
-    - name: cache conda
-      uses: actions/cache@v2
-      env:
-        # Increase this value to reset cache if etc/example-environment.yml has not changed
-        CACHE_NUMBER: 1
-      with:
-        path: ~/conda_pkgs_dir
-        key:
-          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
-
-    - name: setup miniconda
-      uses: conda-incubator/setup-miniconda@v2.1.1
-      with:
-        activate-environment: tinytapeout
-        channel-priority: strict
-        environment-file: environment.yml
-        use-only-tar-bz2: true
-
-    - name: update path
-      shell: bash -l {0}
-      run: |
-        echo $CONDA/envs/tinytapeout/bin >> $GITHUB_PATH
-
-    - name: generate verilog
-      run: make generate
 
     # build PDK and fetch OpenLane
     - name: pdk & caravel
