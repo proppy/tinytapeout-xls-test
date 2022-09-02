@@ -38,11 +38,11 @@ jobs:
   gds:
     needs: xls
     env:
-        OPENLANE_TAG:   2022.02.23_02.50.41
-        OPENLANE_IMAGE_NAME:    efabless/openlane:$(OPENLANE_TAG)
-        OPENLANE_ROOT:  /home/runner/openlane
-        PDK_ROOT:       /home/runner/pdk
-        PDK:            sky130A
+      OPENLANE_TAG:   2022.02.23_02.50.41
+      OPENLANE_IMAGE_NAME:    efabless/openlane:$(OPENLANE_TAG)
+      OPENLANE_ROOT:  /home/runner/openlane
+      PDK_ROOT:       /home/runner/pdk
+      PDK:            sky130A
 
     # ubuntu
     runs-on: ubuntu-latest
