@@ -14,8 +14,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-        key:
-          ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
     
   xls:
     needs: check-caches
@@ -49,8 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: src
-          key:
-            ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+          key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
 
   gds:
     needs: xls
@@ -80,8 +78,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: src
-          key:
-            ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
+        key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.x') }}        
 
     # fetch the Verilog from Wokwi API
     - name: convert to verilog
