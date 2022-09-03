@@ -57,8 +57,8 @@ jobs:
           key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
       - name: commit generated rtl
         run: |
-          git config --local user.name "$BOT_USER"
-          git config --local user.email "$BOT_EMAIL"
+          git config --local user.name "tinybot"
+          git config --local user.email "bot@tinytapeout.com"
           git add src/user_module.v
           git commit -m "src: generated user module [skip ci]"
           git push origin main
