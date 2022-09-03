@@ -2,7 +2,7 @@ name: wokwi
 # either manually started, or on a schedule
 on: [ push, workflow_dispatch ]
 permissions:
-  contents: read|write
+  contents: write
   pages: write
   id-token: write
 jobs:
