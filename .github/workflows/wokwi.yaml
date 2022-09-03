@@ -57,7 +57,8 @@ jobs:
           key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
       - name: commit generated RTL
         run: |
-          git commit -m "src: generated user module [skip ci]" src/user_module.v
+          git add src/user_module.v
+          git commit -m "src: generated user module [skip ci]"
           git push origin main
 
   gds:
