@@ -55,7 +55,7 @@ jobs:
         with:
           path: src
           key: ${{ runner.os }}-rtl-${{ hashFiles('src/user_module.v') }}
-      - commit generated RTL
+      - name: commit generated RTL
         run: |
           git commit -m "src: generated user module [skip ci]" src/user_module.v
           git push origin main
