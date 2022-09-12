@@ -24,7 +24,7 @@ harden_docker:
 	-e PDK_ROOT=$(PDK_ROOT) \
 	-u $(shell id -u $(USER)):$(shell id -g $(USER)) \
 	$(OPENLANE_IMAGE_NAME) \
-	/bin/bash -c "./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi"
+	/bin/bash -c "./flow.tcl -overwrite -design /work/src -run_path /work/runs -tag wokwi -ignore_mismatches"
 
 harden_native:
 	$(OPENLANE_ROOT)/flow.tcl -override_env $(OPENLANE_OVERRIDE_ENV) -design src/ -run_path runs/
